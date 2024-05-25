@@ -1,7 +1,7 @@
 const SingUp = () => {
     return (
         <div>
-              <h2 className="text-3">Please Sing Up</h2>
+              <h2 className="text-3 text-green-400">Please Sing Up</h2>
         </div>
     );
 };
