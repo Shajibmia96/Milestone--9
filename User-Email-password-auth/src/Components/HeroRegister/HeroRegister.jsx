@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import auth from "../../FireBase/FireBase.init";
 import { useState } from "react";
 import { IoMdEye , IoMdEyeOff  } from "react-icons/io";
@@ -43,6 +43,23 @@ const HeroRegister = () => {
             const user = result.user;
             console.log(user)
             setSuccess("User register successfully ")
+
+            // Update email
+            updateProfile(result.user, {
+              displayName: First_name , photoURL: "https://example.com/jane-q-user/profile.jpg"
+            })
+            .then(()=>{
+                console.log("Profile update")
+            })
+            .catch(error =>{
+                   console.log(error.mes)
+            })
+
+            // send verify mail
+            sendEmailVerification(result.user)
+            .then(() =>{
+              alert("Please verify your account , check your mail box")
+            })
         })
         .catch( error =>{
             console.log(error)
