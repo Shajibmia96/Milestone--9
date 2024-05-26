@@ -1,8 +1,10 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../FireBase/FireBase.init";
+import { useState } from "react";
 
 const HeroRegister = () => {
-
+      const [userRegister , setUserRegister] =useState('');
+      const [success, setSuccess ] = useState('')
     const handlesRegister = e =>{
         e.preventDefault()
         const Email = e.target.floating_email.value;
@@ -12,14 +14,25 @@ const HeroRegister = () => {
         const Last_name = e.target.floating_last_name.value;
         const Phone  = e.target.floating_phone.value;
         const Company = e.target.floating_company.value;
+
+        setUserRegister('')
+        setSuccess('')
+
+         if(Password.length < 6){
+            setUserRegister("You password must be 6 character or so longer")
+            return;
+         }
         console.log(Email , Password , Repeat_password , First_name , Last_name, Phone , Company)
+        
         createUserWithEmailAndPassword(auth , Email , Password, Repeat_password, First_name,Last_name,Phone,Company)
         .then( result =>{
             const user = result.user;
             console.log(user)
+            setSuccess("User register successfully ")
         })
         .catch( error =>{
             console.log(error)
+            setUserRegister(error.message)
         })
     }
     return (
@@ -59,8 +72,15 @@ const HeroRegister = () => {
         <label name="company" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Company (Ex. Google)</label>
     </div>
   </div>
-  <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+  <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</button>
 </form>
+
+  {
+    userRegister && <p className="text-red-500 text-3xl text-center mt-4">{userRegister}</p>
+  }
+  {
+    success && <p  className="text-green-500 text-3xl text-center mt-4">{success}</p>
+  }
 
         </div>
     );
