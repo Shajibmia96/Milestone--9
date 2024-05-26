@@ -1,4 +1,9 @@
+import { createUserWithEmailAndPassword, } from "firebase/auth";
+import auth from "../../FireBase/FireBase.init";
+
+
 const SingIn = () => {
+       
 
    const handleSubmit = e =>{
        e.preventDefault()
@@ -6,6 +11,15 @@ const SingIn = () => {
        const Email = e.target.email.value;
        const Password = e.target.password.value;
        console.log(Email , Password)
+       createUserWithEmailAndPassword(auth , Email, Password)
+       .then(result =>{
+         const user = result.user
+         console.log(user)
+       })
+
+       .catch(error =>{
+        console.log(error)
+       })
    }
     return (
         <div>

@@ -1,3 +1,5 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import auth from "../../FireBase/FireBase.init";
 
 const HeroRegister = () => {
 
@@ -11,7 +13,14 @@ const HeroRegister = () => {
         const Phone  = e.target.floating_phone.value;
         const Company = e.target.floating_company.value;
         console.log(Email , Password , Repeat_password , First_name , Last_name, Phone , Company)
-        
+        createUserWithEmailAndPassword(auth , Email , Password, Repeat_password, First_name,Last_name,Phone,Company)
+        .then( result =>{
+            const user = result.user;
+            console.log(user)
+        })
+        .catch( error =>{
+            console.log(error)
+        })
     }
     return (
         <div>
