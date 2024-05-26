@@ -1,14 +1,15 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../../FireBase/FireBase.init";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const SingUp = () => {
       
         const [singUpError, setSingUpError] = useState('')
         const [singUpSuccess, setSingUpSuccess] = useState('')
         const [showPassword , setShowPassword] = useState(false)
-
+        const emailRef = useRef(null)
 
        const handleSingUp = e =>{
           e.preventDefault()
@@ -28,6 +29,28 @@ const SingUp = () => {
             setSingUpError(errorMessage)
           })
        }
+
+    //    handleForgetPassWord
+
+       const handleForgetPassWord = ()=>{
+        const email = emailRef.current.value;
+        if(!email){
+            setSingUpError("Please provide a email")
+        }
+        else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)){
+            setSingUpError("This is not a valid email")
+        }
+        // e.preventDefault()
+        console.log("This is ref" , emailRef.current.value)
+        
+        sendPasswordResetEmail(auth, email)
+        .then ( () =>{
+              alert("please Check you email")
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+       }
   return (
     <div>
       
@@ -41,6 +64,7 @@ const SingUp = () => {
                 <input
                   type="email"
                   name="email"
+                  ref={emailRef}
                   placeholder="email"
                   className="input input-bordered"
                   required
@@ -61,7 +85,7 @@ const SingUp = () => {
                  <span className="absolute top-3 right-35" onClick={()=>setShowPassword(!showPassword)}>{showPassword ? <IoMdEye /> : <IoMdEyeOff />}</span>
                 </div>
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
+                  <a onClick={handleForgetPassWord} href="#" className="label-text-alt link link-hover">
                     Forgot password?
                   </a>
                 </label>
@@ -79,6 +103,8 @@ const SingUp = () => {
         {
             singUpSuccess && <p className="text-green-400-400 text-center text-2xl mt-4">{singUpSuccess}</p>
         }
+
+        <p className="text-center mt-4">New to this site Please <Link to='/heroRegister' className="text-emerald-500 text-3xl p-2"> Register</Link></p>
      
     </div>
   );

@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../FireBase/FireBase.init";
 import { useState } from "react";
 import { IoMdEye , IoMdEyeOff  } from "react-icons/io";
+import { Link } from "react-router-dom";
 const HeroRegister = () => {
       const [userRegister , setUserRegister] =useState('');
       const [success, setSuccess ] = useState('');
@@ -105,6 +106,9 @@ const HeroRegister = () => {
   {
     success && <p  className="text-green-500 text-3xl text-center mt-4">{success}</p>
   }
+
+
+<p className="text-center mt-4">All ready have an account please <Link to='/singUp' className="text-emerald-500 text-3xl p-2">Log in</Link></p>
 
         </div>
     );
