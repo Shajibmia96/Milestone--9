@@ -3,6 +3,7 @@ import Root from "../Components/Root/Root";
 import Home from "../Components/Home/Home";
 import SingIn from "../Components/SIngIn/SingIn";
 import SingUp from "../Components/SingUp/SingUp";
+import HeroRegister from "../Components/HeroRegister/HeroRegister";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
         {
             path: "/singUp",
             element: <SingUp></SingUp>
+        },
+        {
+          path : "/heroRegister",
+          element: <HeroRegister></HeroRegister>
         }
       ]
 
