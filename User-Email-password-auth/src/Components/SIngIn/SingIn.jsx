@@ -1,11 +1,13 @@
 import { createUserWithEmailAndPassword, } from "firebase/auth";
 import auth from "../../FireBase/FireBase.init";
 import { useState } from "react";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 
 const SingIn = () => {
        
-   const [registerError , setRegisterError] = useState('')
+   const [registerError , setRegisterError] = useState('');
+   const [showPassword , setShowPassword] = useState(false)
 
    const handleSubmit = e =>{
        e.preventDefault()
@@ -36,7 +38,8 @@ const SingIn = () => {
   </div>
   <div className="mb-5">
     <label  name="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-    <input type="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter you password" required />
+    <input type={showPassword ? "text":"password"} id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter you password" required />
+    <span onClick={()=> setShowPassword(!showPassword)}>{showPassword ?  <IoMdEye /> :<IoMdEyeOff/> }</span>
   </div>
   <div className="flex items-start mb-5">
     <div className="flex items-center h-5">
