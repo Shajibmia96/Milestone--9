@@ -1,6 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+
 
 const Header = () => {
+  const {user , logOut} = useContext(AuthContext)
+  const Email = user?.email
+
+  const handleSingedOut= () =>{
+     logOut()
+    .then(()=> console.log("User logged out successfully"))
+    .catch(error=>console.log(error))
+  }
   return (
     <div>
       <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
@@ -79,12 +90,23 @@ const Header = () => {
                 <NavLink
                   to={"/profile"}
                   href="#"
-                  className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  className="block py-2 mr-5 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Profile
                 </NavLink>
               </li>
+               {
+                  user ? <>
+                  {Email}
+                  <button onClick={handleSingedOut} className="btn btn-sm">Sing Out</button>
+                  </> :
+                  <Link to='/login'>
+                     <button onClick={handleSingedOut} className="btn btn-sm">Log In</button>
+                  </Link>
+               }
+             
             </ul>
+            
           </div>
         </div>
       </nav>
