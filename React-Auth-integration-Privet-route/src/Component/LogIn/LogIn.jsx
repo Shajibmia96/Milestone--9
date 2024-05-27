@@ -1,5 +1,5 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import auth from "../../FireBase/firebase.config";
+
+import { Link } from "react-router-dom";
 
 const LogIn = () => {
   const handleLogIn = (e) => {
@@ -9,17 +9,12 @@ const LogIn = () => {
     const Password = e.target.password.value;
     const CheckBox = e.target.checkbox.checked;
     console.log(Email, Password, CheckBox);
-    createUserWithEmailAndPassword(auth , Email , Password)
-    .then((result)=>{
-        const user = result.user;
-        console.log(user)
-    })
-    .catch(error =>{
-        console.log(error)
-    })
   };
   return (
     <div>
+           <div>
+                  <p className="text-5xl font-bold text-center my-10">Log In Now !</p>
+           </div>
       <form onSubmit={handleLogIn} className="max-w-sm mx-auto mt-14">
         <div className="mb-5">
           <label
@@ -37,7 +32,7 @@ const LogIn = () => {
             required
           />
         </div>
-        <div className="mb-5">
+        <div className="mb-2">
           <label
             htmlFor="password"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -52,6 +47,9 @@ const LogIn = () => {
             required
           />
         </div>
+         <label className="label mb-3">
+            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+          </label>
         <div className="flex items-start mb-5">
           <div className="flex items-center h-5">
             <input
@@ -77,6 +75,7 @@ const LogIn = () => {
           Log In
         </button>
       </form>
+      <p className="text-center mt-5">If you new here please <Link to={'/register'}><button className="btn btn-active btn-link">Registration</button></Link> </p>
     </div>
   );
 };
