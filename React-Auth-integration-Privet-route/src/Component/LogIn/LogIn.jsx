@@ -1,7 +1,11 @@
 
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const LogIn = () => {
+
+  const {singInUser} = useContext(AuthContext);
   const handleLogIn = (e) => {
     e.preventDefault();
 
@@ -9,6 +13,13 @@ const LogIn = () => {
     const Password = e.target.password.value;
     const CheckBox = e.target.checkbox.checked;
     console.log(Email, Password, CheckBox);
+    singInUser(Email , Password)
+    .then(result =>{
+      console.log(result.user)
+    })
+    .catch(error=>{
+      console.log(error)
+    })
   };
   return (
     <div>

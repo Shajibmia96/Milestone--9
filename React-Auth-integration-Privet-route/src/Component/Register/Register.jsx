@@ -4,9 +4,9 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const Register = () => {
 
-  const authInfo = useContext(AuthContext)
-  const {createUser} = authInfo;
-  console.log(authInfo)
+
+  const {createUser} = useContext(AuthContext)
+  
   const handleRegister = (e) => {
     e.preventDefault();
     const Name = e.target.name.value;
@@ -14,6 +14,12 @@ const Register = () => {
     const Password = e.target.password.value;
     const CheckBox = e.target.checkbox.checked;
     createUser(Email , Password)
+    .then(result => {
+      console.log(result.user)
+    })
+    .catch(error =>{
+      console.log(error.message)
+    })
     console.log(Email, Password, CheckBox , Name);
    
   };
@@ -95,7 +101,7 @@ const Register = () => {
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Log In
+          Registration
         </button>
       </form>
       <p className="text-center mt-5">Already have an account please <Link to={'/login'}><button className="btn btn-active btn-link">Log In</button></Link> </p>
