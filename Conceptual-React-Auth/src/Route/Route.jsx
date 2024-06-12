@@ -7,7 +7,8 @@ import Blog from "../Components/Blog/Blog";
 import Profile from "../Components/Profile/Profile";
 import BookMark from "../Components/BookMark/BookMark";
 import LogIn from "../Components/LogIn/LogIn";
-import SingIn from "../Components/SingIn/SingIn";
+import SingUp from "../Components/singUp/SingUp";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const myCreateRouter = createBrowserRouter([
   {
@@ -29,7 +30,9 @@ const myCreateRouter = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Profile></Profile>
+        element: <PrivateRoute>
+          <Profile></Profile>
+        </PrivateRoute>
       },
       {
         path: "/bookMark",
@@ -40,8 +43,8 @@ const myCreateRouter = createBrowserRouter([
         element:<LogIn></LogIn>
       },
       {
-        path: "/singIn",
-        element:<SingIn></SingIn>
+        path: "/singUp",
+        element:<SingUp></SingUp>
       }
     ],
   },

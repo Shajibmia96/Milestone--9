@@ -1,6 +1,38 @@
 import { NavLink } from "react-router-dom";
+import UseAuth from "../../Hooks/UseAuth";
+import toast from "react-hot-toast";
+const SingUp = () => {
+    
+     const {createUser} =UseAuth();
 
-const SingIn = () => {
+     const handleSingUp = e =>{
+        e.preventDefault();
+
+        // get field value
+        const firstName = e.target.firstName.value;
+        const lastName = e.target.lastName.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        
+
+        // validation
+
+        if(password.length < 6){
+          toast.error('Your password character must be 6 or more!')
+          return
+        }
+
+        console.log(email , password , firstName, lastName)
+
+        createUser(email , password)
+        .then( res => console.log(res))
+        .catch(error => console.log(error))
+
+     }
+
+
+       
     return (
         <div>
              <div>
@@ -10,36 +42,36 @@ const SingIn = () => {
       <h1 className="text-5xl font-bold">Sing In now!</h1>
     </div>
     <div className="card shrink-0 w-full max-w-screen-md shadow-2xl bg-base-100">
-      <form className="card-body">
+      <form onSubmit={handleSingUp} className="card-body">
         <div className="form-control">
           <label className="label">
             <span className="label-text">Fist name</span>
           </label>
-          <input type="email" placeholder="Fist name" className="input input-bordered" required />
+          <input type="text" placeholder="Fist name" name="firstName" className="input input-bordered" required />
         </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Last name</span>
           </label>
-          <input type="email" placeholder="last name" className="input input-bordered" required />
+          <input type="text" placeholder="last name" name="lastName" className="input input-bordered" required />
         </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Email</span>
           </label>
-          <input type="email" placeholder="email" className="input input-bordered" required />
+          <input type="email" placeholder="email" name="email" className="input input-bordered" required />
         </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Password</span>
           </label>
-          <input type="password" placeholder="password" className="input input-bordered" required />
+          <input type="password" placeholder="password" name="password" className="input input-bordered" required />
           <label className="label">
             <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
           </label>
         </div>
         <div className="form-control mt-6">
-          <button className="btn btn-primary">Sing In</button>
+          <button type="submit" className="btn btn-primary">Sing Up</button>
         </div>
       </form>
     </div>
@@ -53,4 +85,4 @@ const SingIn = () => {
     );
 };
 
-export default SingIn;
+export default SingUp;

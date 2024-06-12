@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
+import UseAuth from "../../Hooks/UseAuth";
 
 const NavBar = () => {
+    const {user,logOut} = UseAuth()
   return (
     <div className="mt-10">
       <div className="flex justify-evenly">
@@ -64,14 +66,19 @@ const NavBar = () => {
           </li>
         </ul>
         <ul>
-        <NavLink
-              to="/login"
-              className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "text-blue-400 underline" : ""
-              }
-            >
-              LogIn
-            </NavLink>
+        {
+          user?.email ? <div className="flex gap-3 justify-center items-center">
+             <h1>{user?.email}</h1>
+             <button onClick={logOut} className="btn btn-accent">LogOut</button>
+          </div> :  <div><NavLink
+          to="/login"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "text-blue-400 underline" : ""
+          }
+        >
+          LogIn
+        </NavLink></div>
+        }
         </ul>
         </div>
       </div>
